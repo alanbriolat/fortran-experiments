@@ -20,3 +20,8 @@ def build(bld):
         target='array_calls',
         use='benchmark')
 
+    bld(features='fc fcprogram',
+        source='linkedlist_calls.f90',
+        target='linkedlist_calls',
+        use='benchmark')
+
