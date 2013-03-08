@@ -12,5 +12,6 @@ def configure(conf):
 def build(bld):
     bld(features='fc fcprogram',
         source='normal_calls.f90',
-        target='normal_calls')
+        target='normal_calls',
+        use='benchmark')
 

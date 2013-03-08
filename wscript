@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 
-SUBPROJECTS = ['function-pointers']
+SUBPROJECTS = [
+    'benchmark',
+    'function-pointers',
+]
 
 
 def options(opt):
@@ -22,7 +25,7 @@ def configure(conf):
 
     env = conf.env
 
-    conf.setenv('debug')
+    #conf.setenv('debug')
     conf.env.FCFLAGS += ['-g', '-fcheck=all', '-fbacktrace']
 
     # TODO: figure out how variants/setenv works...
