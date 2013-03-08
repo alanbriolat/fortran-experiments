@@ -16,6 +16,11 @@ def build(bld):
         use='benchmark')
 
     bld(features='fc fcprogram',
+        source='optional_calls.f90',
+        target='optional_calls',
+        use='benchmark')
+
+    bld(features='fc fcprogram',
         source='array_calls.f90',
         target='array_calls',
         use='benchmark')
