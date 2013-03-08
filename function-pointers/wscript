@@ -15,3 +15,8 @@ def build(bld):
         target='normal_calls',
         use='benchmark')
 
+    bld(features='fc fcprogram',
+        source='array_calls.f90',
+        target='array_calls',
+        use='benchmark')
+

@@ -1,11 +1,23 @@
-program normal_calls
+program array_calls
 
     use benchmark
 
     type(ClockType) :: bench
     real :: nums(10000000)
     integer, allocatable :: seed(:)
-    integer :: i, seed_n
+    integer :: i, seed_n, j
+
+    interface
+        subroutine prototype(x)
+            real, intent(inout) :: x
+        end subroutine prototype
+    end interface
+
+    type ProcPtr
+        procedure(prototype), pointer, nopass :: f
+    end type ProcPtr
+
+    type(ProcPtr) :: procs(5)
 
     call random_seed(size=seed_n)
     allocate(seed(seed_n))
@@ -13,13 +25,17 @@ program normal_calls
     call random_seed(put=seed)
     call random_number(nums)
 
+    procs(1)%f => f1
+    procs(2)%f => f2
+    procs(3)%f => f3
+    procs(4)%f => f2
+    procs(5)%f => f1
+
     call bench%start()
     do i = 1, size(nums)
-        call f1(nums(i))
-        call f2(nums(i))
-        call f3(nums(i))
-        call f2(nums(i))
-        call f1(nums(i))
+        do j = 1, size(procs)
+            call procs(j)%f(nums(i))
+        end do
     end do
     call bench%stop()
     print *, 'Total', bench%elapsed, 'seconds,', bench%elapsed / size(nums), 'per loop' 
@@ -41,4 +57,4 @@ contains
         x = -x
     end subroutine f3
 
-end program normal_calls
+end program array_calls
