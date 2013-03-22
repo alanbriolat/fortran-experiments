@@ -32,12 +32,24 @@ class FortranString(object):
         self.attr.__set__(obj, internal)
 
 
+def use_fortran_strings(cls):
+    """Treat all character arrays as Fortran strings.
+
+    A class decorator that applies the :class:`FortranString` descriptor to all
+    character arrays in a :class:`ctypes.Structure`.
+    """
+    for name, type in cls._fields_:
+        if type.__name__.startswith('c_char_Array_'):
+            setattr(cls, name, FortranString(getattr(cls, name)))
+            print name, '-> FortranString'
+    return cls
+
+
+@use_fortran_strings
 class ConfigType(ctypes.Structure):
     _fields_ = [('a', ctypes.c_int),
                 ('b', ctypes.c_char * 8),
                 ('c', ctypes.c_int)]
-
-ConfigType.b = FortranString(ConfigType.b)
 
 
 check_config = configstrings.__configstrings_MOD_check_config
