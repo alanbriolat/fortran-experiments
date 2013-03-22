@@ -3,6 +3,7 @@
 SUBPROJECTS = [
     'benchmark',
     'function-pointers',
+    'config-strings-interop',
 ]
 
 
