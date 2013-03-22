@@ -19,17 +19,11 @@ class FortranString(object):
 
     def __get__(self, obj, objtype):
         """Strip space padding from the right of the internal value."""
-        internal = self.attr.__get__(obj, objtype)
-        external = internal.rstrip(' ')
-        print '[get] converted', repr(internal), 'to', repr(external)
-        return external
+        return self.attr.__get__(obj, objtype).rstrip(' ')
 
     def __set__(self, obj, val):
         """Add space padding on the right for the internal value."""
-        external = val
-        internal = val + ' ' * (self.attr.size - len(val))
-        print '[set] converted', repr(external), 'to', repr(internal)
-        self.attr.__set__(obj, internal)
+        self.attr.__set__(obj, '{{: <{}s}}'.format(self.attr.size).format(val))
 
 
 def use_fortran_strings(cls):
