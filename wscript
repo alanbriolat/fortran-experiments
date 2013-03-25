@@ -4,6 +4,7 @@ SUBPROJECTS = [
     'benchmark',
     'function-pointers',
     'config-strings-interop',
+    'function-pointers-interop',
 ]
 
 
