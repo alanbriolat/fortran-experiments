@@ -3,9 +3,10 @@ module funcpointerinterop
     use iso_c_binding, only: c_funptr
 
     abstract interface
-        subroutine func(data)
-            use iso_c_binding, only: c_int
-            integer(c_int), value :: data
+        subroutine func(tag, msg)
+            use iso_c_binding, only: c_char
+            character(kind=c_char,len=*) :: tag
+            character(kind=c_char,len=*) :: msg
         end subroutine func
     end interface
 
@@ -25,7 +26,7 @@ contains
         procedure(func), pointer :: debug
 
         call c_f_procpointer(conf%debug, debug)
-        call debug(22)
+        call debug("test" // char(0), "hello debug" // char(0))
     end subroutine do_debug
 
 
@@ -36,7 +37,7 @@ contains
         procedure(func), pointer :: error
 
         call c_f_procpointer(conf%error, error)
-        call error(33)
+        call error("test" // char(0), "hello error" // char(0))
     end subroutine do_error
 
 end module funcpointerinterop

@@ -3,7 +3,7 @@ import ctypes
 import sys
 
 
-STRFUNC = ctypes.CFUNCTYPE(None, ctypes.c_int)
+STRFUNC = ctypes.CFUNCTYPE(None, ctypes.c_char_p, ctypes.c_char_p)
 
 
 class funcs_t(ctypes.Structure):
