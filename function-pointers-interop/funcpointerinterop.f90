@@ -1,6 +1,6 @@
 module funcpointerinterop
 
-    use iso_c_binding, only: c_funptr
+    use iso_c_binding, only: c_funptr, C_NULL_FUNPTR
 
     abstract interface
         subroutine func(tag, msg)
@@ -11,8 +11,8 @@ module funcpointerinterop
     end interface
 
     type, bind(c) :: funcs_t
-        type(c_funptr) :: debug = 0
-        type(c_funptr) :: error = 0
+        type(c_funptr) :: debug = C_NULL_FUNPTR
+        type(c_funptr) :: error = C_NULL_FUNPTR
     end type funcs_t
 
     public :: do_debug, do_error
