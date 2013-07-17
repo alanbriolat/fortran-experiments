@@ -16,9 +16,18 @@ module ftypes
       ,y
   end type Foo
 
+end module ftypes
+
+module ftypes2
+
+  use ftypes
+
+  implicit none
+  public
+
   type :: Bar
     type(Foo) :: f
     real, dimension(20) :: g
   end type Bar
 
-end module ftypes
+end module ftypes2

@@ -5,6 +5,7 @@ SUBPROJECTS = [
     'function-pointers',
     'config-strings-interop',
     'function-pointers-interop',
+    'auto-ctypes-interface',
 ]
 
 
